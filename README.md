@@ -4,7 +4,7 @@
 * Zelda Elma Sibuea 05111940000038
 * Hanifa Fauziah 05111940000024
 ## Soal 1
-###1C###
+### 1C ###
 Pertama melakukan filter menggunakan Perl, lalu dimasukkan ke dalam newline, lalu disort dan dicari yang unik (tidak ada kata duplikat), hasilnya lalu disimpan dalam file sementara `temp.txt`
 
 ```
@@ -40,7 +40,7 @@ done < temp.txt
 
 `count error` sebagai argumen 1 dan argumen 2 yang dibaca dari input
 
-###1D###
+### 1D ###
 Selanjutnya dilakukan inisialisasi file `user_statistic.csv`:
 
 ```
@@ -114,7 +114,7 @@ rm errorcount.txt
 rm infocount.txt
 ```
 ## Soal 2
-###2A###
+### 2A ###
 Pertama, melakukan filter menggunakan awk, lalu hasilnya disimpan pada file sementara `temp.txt`
 
 ```
@@ -146,7 +146,7 @@ LC_ALL=C awk -F '\t' '{
 printf("Transaksi terakhir dengan profit percentage terbesar yaitu %d dengan persentase %.4f%%.\n\n", $1, $2);
 }' temp2.txt > hasil.txt
 ```
-###2B###
+### 2B ###
 Lalu, dilanjuti dengan inisialisasi soal 2b pada `hasil.txt`
 
 ```
@@ -169,7 +169,7 @@ Kemudian hasilnya dilakukan alphabetical sort dan dicari yang unik (tidak duplik
 ```
 sort temp.txt | uniq >> hasil.txt
 ```
-###2C###
+### 2C ###
 Selanjutnya, memfilter masing-masing segment lalu dihitung masing-masing countnya, dan dimasukkan ke dalam variabel
 ```
 countHome=$(grep "Home Office" Laporan-TokoShiSop.tsv | wc -l)
@@ -204,7 +204,7 @@ Selanjutnya melakukan inisialisasi ulang temp.txt
 ```
 echo "init" > temp.txt
 ```
-###2D###
+### 2D ###
 Kemudian, melakukan filtering untuk masing-masing region yang ada dengan awk, lalu menghitung hasil penambahan profitnya, kemudian hasilnya dimasukkan kedalam file sementara `temp.txt`
 
 ```
