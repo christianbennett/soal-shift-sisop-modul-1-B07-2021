@@ -21,11 +21,13 @@ grep -Po '(?<=ERROR ).*(?= \()' syslog.log | sort | uniq -c | sort -nr > temp.tx
 
 `sort -nr` untuk melakukan sort numerik dan reverse (descending sort)
 
+
 Lalu untuk inisialisasi file `error_message.csv`, dilakukan: 
 
 ```
 echo "Error,Count">error_message.csv
 ```
+
 
 Setelah itu dilakukan looping untuk menambahkan output pada `error_message.csv`
 
@@ -38,13 +40,15 @@ done < temp.txt
 
 `read -r` untuk membaca input
 
-`count error` sebagai argumen 1 dan argumen 2 yang dibaca dari inpit
+`count error` sebagai argumen 1 dan argumen 2 yang dibaca dari input
+
 
 Selanjutnya dilakukan inisialisasi file `user_statistic.csv`:
 
 ```
 echo "Username,INFO,ERROR" > user_statistic.csv
 ```
+
 
 Selanjutnya, memfilter username yang dimulai dengan `(` dan diakhiri dengan `)`, lalu disort dan dimasukkan ke file sementara `username.txt`
 
@@ -58,12 +62,14 @@ Selanjutnya, memfilter username yang dimulai dengan `(` dan diakhiri dengan `)`,
 
 `sort --unique` untuk mencari kata yang unik (tidak ada duplikat) 
 
+
 Lalu melakukan inisialisasi file sementara `errorcount.txt` dan `infocount.txt`
 
 ```
 echo "init" > errorcount.txt
 echo "init" > infocount.txt
 ```
+
 
 Kemudian, melakukan looping untuk mencari count masing-masing `ERROR` dan `INFO` lalu ditambahkan ke file sementara yang sudah dibuat
 
@@ -87,7 +93,8 @@ done < username.txt
 
 `wc -l` untuk menghitung baris hasil `grep -o` 
 
-Hal ini dilakukan untuk menghapus baris 1 hasil inisialiasi tadi
+
+Hal selanjutnya yaitu menghapus baris 1 hasil inisialiasi tadi
 
 ```
 sed -i '1d' errorcount.txt
@@ -97,12 +104,14 @@ sed -i '1d' infocount.txt
 
 `'1d'` untuk menghapus baris 1
 
+
 Kemudian, menggabungkan info per baris dengan delimiter `,` 
 
 ```
 (paste -d',' username.txt infocount.txt errorcount.txt)>>user_statistic.csv
 ```
 `paste -d','` untuk menempel file per baris dengan pembagi `,`
+
 
 Terakhir yang dilakukan adalah menghapus file-file sementara yang sudah tidak digunakan
 
@@ -112,5 +121,6 @@ rm username.txt
 rm errorcount.txt
 rm infocount.txt
 ```
+
 ## Soal 2
 ## Soal 3
