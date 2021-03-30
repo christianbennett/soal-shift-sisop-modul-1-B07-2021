@@ -1,5 +1,11 @@
 #!/bin/bash
 
+grep -Po '(?<=: ).*(?=)' syslog.log  
+
+#grep -Po '(?<=ERROR).*(?=)' syslog.log | wc -l
+
+grep -Po '(?<=ERROR ).*(?= \()' syslog.log | sort | uniq -c | sort -nr 
+
 #filter dengan Perl, masukkan ke dalam new line, lalu disort dan dihitung yang unique
 grep -Po '(?<=ERROR ).*(?= \()' syslog.log | sort | uniq -c | sort -nr > temp.txt
 
@@ -14,6 +20,7 @@ done < temp.txt
 
 #membuat header pada user_statistic.csv
 echo "Username,INFO,ERROR" > user_statistic.csv
+
 
 #filter username yang dimulai dengan "(" dan diakhiri dengan ")", lalu disort dan dimasukkan ke file temp username.txt
 (grep -Po '(?<=\().*(?=\))' syslog.log | sort --unique) > username.txt
@@ -36,7 +43,9 @@ sed -i '1d' errorcount.txt
 sed -i '1d' infocount.txt
 
 #menggabungkan per baris dengan delimiter ","
-(paste -d',' username.txt infocount.txt errorcount.txt)>>user_statistic.csv
+(paste -d',' username.txt infocount.txt errorcount.txt) #>>user_statistic.csv
+
+(paste -d',' username.txt infocount.txt errorcount.txt) >>user_statistic.csv
 
 #menghapus file-file temporary yang sudah tidak digunakan
 rm temp.txt
