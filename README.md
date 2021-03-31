@@ -299,7 +299,7 @@ Selain itu juga terdapat kesulitan dalam melakukan filter region, yang saya laku
 ## Soal 3 ##
 ### 3A ###
 Pertama-tama pada soal disuruh untuk menyimpan 23 gambar dari link https://loremflickr.com/320/240/kitten.
-```
+```linux
 for (( i=1; i<=23; i++))
 do
   wget -O "Koleksi_$i.jpeg" -a Foto.log https://loremflickr.com/320/240/kitten
