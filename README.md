@@ -492,7 +492,7 @@ Sedangkan yang dibawah ini merupakan perintah schedule dalam melakukan unzip dan
 ```
 `0 18 * * 1-5` berarti folder akan *diunzip setiap jam 6 malam tiap hari Senin-Jumat*. Lalu diikuti dengan perintah `unzip` dan perintah `rm` untuk menghapus file zipnya.
 
-Untuk hasilnya ketika dizip bisa dilihat seperti digambar [foto3d](Screenshots/soal3d.jpg) dan ketika di unzip akan kembali menjadi gambar [foto3c](Screenshots/soal3c.jpg)
+Ketika dizip akan terlihat seperti digambar [foto3d](Screenshots/soal3d.jpg) dan ketika di unzip akan kembali seperti digambar [foto3c](Screenshots/soal3c.jpg)
 
 ### Kesulitan ###
 Pada nomor 3 ini kesulitan yang dialami lebih kepada mengartikan apa yang diinginkan soal dan juga pada saat pengerjaan masih belum begitu paham dalam menjalankan `cronjobs`.
