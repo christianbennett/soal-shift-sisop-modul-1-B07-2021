@@ -299,18 +299,18 @@ Selain itu juga terdapat kesulitan dalam melakukan filter region, yang saya laku
 ## Soal 3 ##
 ### 3A ###
 Pertama-tama pada soal disuruh untuk menyimpan 23 gambar dari link https://loremflickr.com/320/240/kitten.
-```linux
+```shell script
 for (( i=1; i<=23; i++))
 do
   wget -O "Koleksi_$i.jpeg" -a Foto.log https://loremflickr.com/320/240/kitten
 done
 ```
-Disini menggunakan command `wget` untuk mendownload file dari link
-`-O` untuk mengubah nama filenya ketika didownload
-`-a` untuk menyimpan log dari file yang didownload ke file ``Foto.log``.
+Disini menggunakan command `wget` untuk mendownload file dari link yang diikuti
+`-O` untuk mengubah nama filenya menjadi **Koleksi_$i.jpeg** ketika didownload
+`-a` untuk menyimpan log dari file yang didownload ke file **Foto.log**.
 
-Pada soal juga diminta agar tidak ada foto yang sama, maka disini bisa menggunakan perintah `cmp`.
-```
+Pada soal juga diminta agar tidak ada foto yang sama, maka disini bisa menggunakan perintah `cmp` untuk membandingkan foto-foto yang sudah didownload.
+```shell script
 for (( a=1; a<=23; a++ ))
 do
    for(( b=a+1; b<=23; b++ ))
@@ -323,9 +323,9 @@ do
    done
 done
 ```
-Disini menggunakan looping for dulu untuk mengecek satu-satu filenya apakah ada yang sama. Apabila ketika 2 file dibandingkan dan ternyata sama (duplikat) maka outputnya akan bernilai 0. Apabila hal itu terjadi, maka file akan diremove dengan perintah `rm`.
-Setelah itu, nama dari file-file akan kembali teracak, karena ada beberapa yang di remove, maka dari itu kita melakukan looping untuk mengganti nama dari masing-masing file.
-```
+Dimana disini menggunakan looping **for** dulu untuk mengecek satu-satu filenya apakah ada yang sama. Apabila ketika 2 file dibandingkan dan ternyata sama (duplikat) maka outputnya akan bernilai 0. Apabila hal itu terjadi, maka **file akan diremove** dengan perintah `rm`.
+Setelah itu, nama dari file-file akan tidak terurut, karena ada beberapa yang di remove, maka kita melakukan looping untuk mengganti nama dari masing-masing file agar terurut kembali.
+```shell script
 num=1
 for f in *.jpeg
 do
@@ -340,11 +340,13 @@ do
      
 done
 ```
-Dimana diawali dengan iterasi num = 1. Untuk setiap file yang ada yang berekstensi `.jpeg` maka namanya akan dirubah sesuai ketentuan yaitu `Koleksi_XX`. Menggunakan `if` untuk cek `num` nya apakah masih < 10. Karena dalam penamaan jika < 10 haruslah ada 0 diawal nya seperti ini `Koleksi_01`. Kondisi `else` untuk file ke 10 hingga ke 23.
+Dimana diawali dengan iterasi num = 1. Untuk setiap file yang ada yang berekstensi `.jpeg` maka namanya akan dirubah sesuai ketentuan yaitu **Koleksi_XX**. Menggunakan `if` untuk cek `num` nya apakah masih < 10. Karena dalam penamaan jika < 10 haruslah ada 0 diawal nya seperti ini *Koleksi_01* dan Kondisi `else` untuk file ke 10 hingga ke 23.
+
+![soal3](Screenshots/soal3a.jpg)
 
 ### 3B ###
-Pada bagian ini diminta untuk menjalankan `script` berupa memindahkan file download dan juga log nya ke `folder` yang bernama `tanggal unduhnya`.
-```
+Pada bagian ini diminta untuk menjalankan `script` berupa memindahkan file download dan juga log nya ke `folder` yang bernama **tanggal unduhnya**.
+```shell script
 ./soal3a.sh
 
 tanggal=$(date +"%d-%m-%Y")
@@ -353,30 +355,35 @@ mkdir $tanggal
 mv ./Koleksi_* ./$tanggal
 mv Foto.log ./$tanggal
 ```
-`./soal3a.sh` berarti akan menjalankan script `soal3a.sh`. Lalu membuat folder sesuai dengan tanggal unduh nya dengan perintah `mkdir` dan memindahkan file-file gambar dan lognya ke folder yang sudah dibuat tadi dengan perintah `mv`.
-Pada bagian ini juga diminta untuk membuat `cronjob` yang dapat menjalankan script setiap jam 8 malam, diawali pada tanggal 1 dalam 7 hari sekali dan diawali tanggal 2 dalam 4 hari sekali.
+`./soal3a.sh` berarti akan menjalankan script `soal3a.sh`.
+`mkdir` perintah untuk membuat folder sesuai dengan tanggal unduh nya dengan perintah.
+`mv` untuk memindahkan file-file gambar dan lognya ke folder yang sudah dibuat tadi.
+Pada bagian ini juga diminta untuk membuat `cronjob` yang dapat menjalankan script setiap jam 8 malam, diawali pada tanggal 1 dalam 7 hari sekali dan diawali tanggal 2 dalam 4 hari sekali. Dimana dalam menulis `crontab` memiliki aturan yaitu diawal diawali dengan jadwalnya, lalu command yang dijalankan dan file yang mau dijalankan.
+```shell script
+0 20 1-31/7 * * bash /home/hanifa/Desktop/praktikum1/soal3/soal3b.sh
+0 20 2-18/4 * * bash /home/hanifa/Desktop/praktikum1/soal3/soal3b.sh
+0 20 26-31/4 * * bash /home/hanifa/Desktop/praktikum1/soal3/soal3b.sh
 ```
-0 20 1-31/7,2-31/4 * * bash /home/hanifa/Desktop/praktikum1/soal3/soal3b.sh
-```
+Pada `cronjob` ini dibuat seperti diatas agar pada tanggal 22 `script` nya nantinya hanya akan dijalankan 1x saja.
+![soal3](Screenshots/soal3b.jpg)
 
 ### 3C ###
-```
+```shell script
 tanggal=$(date +"%d-%m-%Y")
 kmrn=$(date --date="yesterday" +"%d-%m-%Y")
 ```
-Diatas ini merupakan cara untuk mendapatkan tanggal hari ini sesuai dengan format dengan bantuan `$(date +"")`.
-Pertama-tama kita akan mengecek, apakah sebelumnya sudah pernah mendownload `kucing` ataupun `kelinci`. 
-```
+Diatas ini merupakan cara untuk mendapatkan tanggal hari ini sesuai dengan format dengan bantuan `$(date +"")`. Pada bagian ini diminta untuk mencari cara agar kucing dan kelinci bisa didownload dihari yang yang bergantian. Pertama-tama kita akan mengecek, apakah sebelumnya sudah pernah mendownload `kucing` ataupun `kelinci`dengan bantuan **if**.
+```shell script
 if [[ -d "/home/hanifa/Desktop/praktikum1/soal3/Kucing_$kmrn" || ! -d "/home/hanifa/Desktop/praktikum1/soal3/Kucing_$kmrn" && ! -d "/home/hanifa/Desktop/praktikum1/soal3/Kelinci_$kmrn" ]]
 ```
-Selain untuk mengecek apakah sudah pernah mendownload `kucing` atau `kelinci` juga akan mengecek apakah sebelumnya mendownload `kucing`. Hal ini dilakukan dengan dibantu command `-d` untuk mengecek apakah ada foldernya. Jika belum pernah mendownload apapun atau sebelumnya telah mendownload `kucing`, maka kali ini kita akan melakukan download pada `kelinci`.
-```
+Selain untuk mengecek apakah sudah pernah mendownload `kucing` atau `kelinci` **if** ini juga akan mengecek apakah dihari sebelumnya kita telah mendownload `kucing`. Hal ini dilakukan dengan dibantu command `-d` untuk mengecek apakah ada folder `kucing` ataupun `kelinci` yang didownload dihari kemarin. Jika belum pernah mendownload apapun atau sebelumnya telah mendownload `kucing`, maka kita akan melakukan download pada `kelinci`.
+```shell script
 then
     mkdir "Kelinci_$tanggal"
     cd Kelinci_$tanggal
 ```
-Hal pertama yang dilakukan ialah membuat folder sesuai format yang ada yaitu `Kelinci_$tanggalsaatini`. Lalu masuk kedalam foldernya dan melakukan download seperti pada script pada `soal3a.sh`.
-```
+Dimana hal pertama yang dilakukan ialah membuat folder sesuai format yang ada yaitu `Kelinci_$tanggalsaatini`. Lalu masuk kedalam foldernya dan melakukan download pada foto-foto kelinci seperti pada script pada `soal3a.sh`.
+```shell script
     for (( i=1; i<=23; i++))
     do
       wget -O "Koleksi_$i.jpeg" -a Foto.log https://loremflickr.com/320/240/bunny 
@@ -410,9 +417,10 @@ Hal pertama yang dilakukan ialah membuat folder sesuai format yang ada yaitu `Ke
 fi
 ```
 Hal ini diakhiri dengan berpindah keluar dari folder `Kelinci` tadi, kembali ke folder luar dengan dibantu perintah `cd`.
+
 Sedangkan berikut ini merupakan kondisi apabila sebelumnya sudah didownload koleksi gambar `kelinci`. Sama seperti sebelumnya diawali dengan membuat folder dengan bantuan
 command `mkdir` sesuai format dan berpindah kedalamnya dengan bantuan perintah `cd`.
-```
+```shell script
 #kalau kemaren cetak kelinci
 if [ -d "/home/hanifa/Desktop/praktikum1/soal3/Kelinci_$kmrn" ]
 then 
@@ -452,9 +460,11 @@ fi
 ```
 Sama seperti sebelumnya, diakhiri dengan berpindah lagi dengan bantuan command `cd` untuk kembali ke folder luar.
 
+![soal3](Screenshots/soal3c.jpg)
+
 ### 3D ###
-Pada bagian ini diminta untuk memindahkan folder-folder yang ada ke zip yang nantinya akan diberi password berupa tanggal hari ini.
-```
+Pada bagian ini diminta untuk **memindahkan folder-folder yang ada ke zip** yang nantinya akan **diberi password** berupa **tanggal hari ini**.
+```shell script
 tanggal=$(date +"%d-%m-%Y")
 passtgl=$(date +"%m%d%Y")
 
@@ -462,18 +472,24 @@ zip -r -P $passtgl Koleksi.zip Kelinci_* Kucing_*
 rm -r Kelinci_* Kucing_*
 ```
 Disini kita akan mengekstrak tanggal untuk menjadi password dengan bantuan `$(date + "%m%d%Y")`.
-`zip` merupakan perintah untuk membuat zip dimana terdapat command `-r` sebagai tanda yang dizip itu adalah folder dan `-P` untuk memberi password pada zip. Lalu diikuti dengan nama zip yang diinginkan yaitu `Koleksi.zip` dan diikuti dengan folder-folder yang ingin dizip. 
-`rm -r` adalah perintah untuk menghapus folder dimana setelahnya diikuti dengan nama folder yang akan dihapus.
+`zip` merupakan perintah untuk **membuat zip** dimana terdapat command `-r` sebagai tanda yang dizip itu adalah folder dan `-P` untuk memberi password pada zip. Lalu diikuti dengan nama zip yang diinginkan yaitu `Koleksi.zip` dan diikuti dengan folder-folder yang ingin dizip. 
+`rm -r` adalah perintah untuk **menghapus folder** dimana setelahnya diikuti dengan nama folder yang akan dihapus.
+![soal3](Screenshots/soal3d.jpg)
 
 ### 3E ###
-Pada bagian ini diminta untuk membuat `cronjobs` untuk melakukan zip dan unzip.
-```
+Pada bagian ini diminta untuk membuat `cronjobs` untuk melakukan **zip** dan **unzip** sesuai jadwal yang ada.
+```shell script
 0 7 * * 1-5 bash /home/hanifa/Desktop/praktikum1/soal3/soal3d.sh
 ```
 Diatas merupakan perintah untuk melakukan zip yang perintahnya terdapat pada script `soal3d.sh`. 
-`0 7 * * 1-5` berarti folder akan di zip pada jam 7 pagi setiap hari Senin-Jumat. Lalu diikuti dengan perintah bash dan letak dari script yang akan dijalankan. 
+`0 7 * * 1-5` berarti folder akan di *zip pada jam 7 pagi setiap hari Senin-Jumat*. Lalu diikuti dengan perintah bash dan letak dari script yang akan dijalankan. 
+
 Sedangkan yang dibawah ini merupakan perintah schedule dalam melakukan unzip dan juga penghapusan zip.
-```
+```shell script
 0 18 * * 1-5 unzip -P `date +"%m%d%Y"` /home/hanifa/Desktop/praktikum1/soal3/Koleksi.zip && rm /home/hanifa/Desktop/praktikum1/soal3/Koleksi.zip
 ```
-`0 18 * * 1-5` berarti folder akan diunzip setiap jam 6 malam tiap hari Senin-Jumat. Lalu diikuti dengan perintah `unzip` dan perintah `rm` untuk menghapus file zipnya.
+`0 18 * * 1-5` berarti folder akan *diunzip setiap jam 6 malam tiap hari Senin-Jumat*. Lalu diikuti dengan perintah `unzip` dan perintah `rm` untuk menghapus file zipnya.
+
+### Kesulitan ###
+Pada nomor 3 ini kesulitan yang dialami lebih kepada mengartikan apa yang diinginkan soal dan juga pada saat pengerjaan masih belum begitu paham dalam menjalankan `cronjobs`.
+
