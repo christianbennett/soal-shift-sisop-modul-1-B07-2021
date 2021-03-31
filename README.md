@@ -126,7 +126,7 @@ rm errorcount.txt
 rm infocount.txt
 ```
 
-![soal1][Screenshots/soal1.png]
+![soal1](Screenshots/soal1.png)
 
 ### Kesulitan ###
 Kesulitan pada soal terdapat pada penyimpanan hasil filter, yang saya lakukan adalah menyimpan hasil yang akan diolah lagi di file sementara/ temporary file `temp.txt`.
@@ -272,7 +272,7 @@ rm temp.txt
 rm temp2.txt
 ```
 
-![soal2][Screenshots/soal2.png]
+![soal2](Screenshots/soal2.png)
 
 ### Kesulitan ###
 Kesulitan pada soal sama dengan soal 1, yaitu terdapat pada penyimpanan hasil filter, yang saya lakukan adalah menyimpan hasil yang akan diolah lagi di file sementara/ temporary file `temp.txt` dan `temp2.txt`.
