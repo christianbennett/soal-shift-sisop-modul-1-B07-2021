@@ -4,6 +4,18 @@
 * Zelda Elma Sibuea 05111940000038
 * Hanifa Fauziah 05111940000024
 ## Soal 1
+
+### 1A ###
+Hanya melakukan filter per baris menggunakan perl lalu dimasukkan kedalam newline pada terminal
+
+```
+grep -Po '(?<=: ).*(?=)' syslog.log  
+```
+
+`grep -Po` digunakan untuk memfilter kata menggunakan perl, lalu hasilnya dimasukkan kedalam newline
+
+`'(?<=: ).*(?=)'` yaitu untuk mencari kata yang dimulai dengan `: ` dan akhirnya tidak dibatasi
+
 ### 1C ###
 Pertama melakukan filter menggunakan Perl, lalu dimasukkan ke dalam newline, lalu disort dan dicari yang unik (tidak ada kata duplikat), hasilnya lalu disimpan dalam file sementara `temp.txt`
 
@@ -113,6 +125,12 @@ rm username.txt
 rm errorcount.txt
 rm infocount.txt
 ```
+
+![soal1][./Screenshots/soal1]
+
+### Kesulitan ###
+Kesulitan pada soal terdapat pada penyimpanan hasil filter, yang saya lakukan adalah menyimpan hasil yang akan diolah lagi di file sementara/ temporary file `temp.txt`.
+
 ## Soal 2
 ### 2A ###
 Pertama, melakukan filter menggunakan awk, lalu hasilnya disimpan pada file sementara `temp.txt`
@@ -253,6 +271,14 @@ Terakhir, melakukan remove file temp yang sudah tidak digunakan
 rm temp.txt
 rm temp2.txt
 ```
+
+![soal2][./Screenshots/soal2]
+
+### Kesulitan ###
+Kesulitan pada soal sama dengan soal 1, yaitu terdapat pada penyimpanan hasil filter, yang saya lakukan adalah menyimpan hasil yang akan diolah lagi di file sementara/ temporary file `temp.txt` dan `temp2.txt`.
+
+Selain itu juga terdapat kesulitan dalam melakukan filter region, yang saya lakukan masih sedikit manual, seharusnya masing-masing region dapat difilter dulu, lalu hasilnya disimpan, baru melakukan filter menggunakan looping. 
+
 
 ## Soal 3 ##
 ### 3A ###
