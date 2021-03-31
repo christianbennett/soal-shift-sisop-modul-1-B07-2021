@@ -328,7 +328,7 @@ Dimana diawali dengan iterasi num = 1. Untuk setiap file yang ada yang bereksten
 
 ### 3B ###
 Pada bagian ini diminta untuk menjalankan `script` berupa memindahkan file download dan juga log nya ke `folder` yang bernama `tanggal unduhnya`.
-``
+```
 ./soal3a.sh
 
 tanggal=$(date +"%d-%m-%Y")
@@ -336,7 +336,7 @@ mkdir $tanggal
 
 mv ./Koleksi_* ./$tanggal
 mv Foto.log ./$tanggal
-``
+```
 `./soal3a.sh` berarti akan menjalankan script `soal3a.sh`. Lalu membuat folder sesuai dengan tanggal unduh nya dengan perintah `mkdir` dan memindahkan file-file gambar dan lognya ke folder yang sudah dibuat tadi dengan perintah `mv`.
 Pada bagian ini juga diminta untuk membuat `cronjob` yang dapat menjalankan script setiap jam 8 malam, diawali pada tanggal 1 dalam 7 hari sekali dan diawali tanggal 2 dalam 4 hari sekali.
 ```
