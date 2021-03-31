@@ -16,7 +16,23 @@ grep -Po '(?<=: ).*(?=)' syslog.log
 
 `'(?<=: ).*(?=)'` yaitu untuk mencari kata yang dimulai dengan `: ` dan akhirnya tidak dibatasi
 
+### 1B ###
+
+```
+grep -Po '(?<=ERROR ).*(?= \()' syslog.log | sort | uniq -c | sort -nr 
+```
+
+sama seperti 1D dibawah, namun di outputkan ke terminal (penjelasan di 1D)
+
 ### 1C ###
+
+```
+paste -d',' username.txt infocount.txt errorcount.txt
+```
+
+sama seperti 1E dibawah, yaitu hanya mengoutputkan file temp menggunakan paste pada terminal (penjelasan di 1E)
+
+### 1D ###
 Pertama melakukan filter menggunakan Perl, lalu dimasukkan ke dalam newline, lalu disort dan dicari yang unik (tidak ada kata duplikat), hasilnya lalu disimpan dalam file sementara `temp.txt`
 
 ```
@@ -52,7 +68,7 @@ done < temp.txt
 
 `count error` sebagai argumen 1 dan argumen 2 yang dibaca dari input
 
-### 1D ###
+### 1E ###
 Selanjutnya dilakukan inisialisasi file `user_statistic.csv`:
 
 ```
