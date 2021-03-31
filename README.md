@@ -365,6 +365,7 @@ Pada bagian ini juga diminta untuk membuat `cronjob` yang dapat menjalankan scri
 0 20 26-31/4 * * bash /home/hanifa/Desktop/praktikum1/soal3/soal3b.sh
 ```
 Pada `cronjob` ini dibuat seperti diatas agar pada tanggal 22 `script` nya nantinya hanya akan dijalankan 1x saja.
+
 ![soal3](Screenshots/soal3b.jpg)
 
 ### 3C ###
@@ -474,6 +475,7 @@ rm -r Kelinci_* Kucing_*
 Disini kita akan mengekstrak tanggal untuk menjadi password dengan bantuan `$(date + "%m%d%Y")`.
 `zip` merupakan perintah untuk **membuat zip** dimana terdapat command `-r` sebagai tanda yang dizip itu adalah folder dan `-P` untuk memberi password pada zip. Lalu diikuti dengan nama zip yang diinginkan yaitu `Koleksi.zip` dan diikuti dengan folder-folder yang ingin dizip. 
 `rm -r` adalah perintah untuk **menghapus folder** dimana setelahnya diikuti dengan nama folder yang akan dihapus.
+
 ![soal3](Screenshots/soal3d.jpg)
 
 ### 3E ###
@@ -489,6 +491,8 @@ Sedangkan yang dibawah ini merupakan perintah schedule dalam melakukan unzip dan
 0 18 * * 1-5 unzip -P `date +"%m%d%Y"` /home/hanifa/Desktop/praktikum1/soal3/Koleksi.zip && rm /home/hanifa/Desktop/praktikum1/soal3/Koleksi.zip
 ```
 `0 18 * * 1-5` berarti folder akan *diunzip setiap jam 6 malam tiap hari Senin-Jumat*. Lalu diikuti dengan perintah `unzip` dan perintah `rm` untuk menghapus file zipnya.
+
+Untuk hasilnya ketika dizip bisa dilihat seperti digambar [foto3d](Screenshots/soal3d.jpg) dan ketika di unzip akan kembali menjadi gambar [foto3c](Screenshots/soal3c.jpg)
 
 ### Kesulitan ###
 Pada nomor 3 ini kesulitan yang dialami lebih kepada mengartikan apa yang diinginkan soal dan juga pada saat pengerjaan masih belum begitu paham dalam menjalankan `cronjobs`.
