@@ -16,6 +16,8 @@ grep -Po '(?<=: ).*(?=)' syslog.log
 
 `'(?<=: ).*(?=)'` yaitu untuk mencari kata yang dimulai dengan `: ` dan akhirnya tidak dibatasi
 
+![soal1a](Screenshots/soal1a.png)
+
 ### 1B ###
 
 ```
@@ -24,6 +26,8 @@ grep -Po '(?<=ERROR ).*(?= \()' syslog.log | sort | uniq -c | sort -nr
 
 sama seperti 1D dibawah, namun di outputkan ke terminal (penjelasan di 1D)
 
+![soal1b](Screenshots/soal1b.png)
+
 ### 1C ###
 
 ```
@@ -31,6 +35,8 @@ paste -d',' username.txt infocount.txt errorcount.txt
 ```
 
 sama seperti 1E dibawah, yaitu hanya mengoutputkan file temp menggunakan paste pada terminal (penjelasan di 1E)
+
+![soal1c](Screenshots/soal1c.png)
 
 ### 1D ###
 Pertama melakukan filter menggunakan Perl, lalu dimasukkan ke dalam newline, lalu disort dan dicari yang unik (tidak ada kata duplikat), hasilnya lalu disimpan dalam file sementara `temp.txt`
@@ -141,6 +147,8 @@ rm username.txt
 rm errorcount.txt
 rm infocount.txt
 ```
+
+Hasil akhir sebagai berikut: 
 
 ![soal1](Screenshots/soal1.png)
 
@@ -287,6 +295,8 @@ Terakhir, melakukan remove file temp yang sudah tidak digunakan
 rm temp.txt
 rm temp2.txt
 ```
+
+Hasil akhir sebagai berikut:
 
 ![soal2](Screenshots/soal2.png)
 
