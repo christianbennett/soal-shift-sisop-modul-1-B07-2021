@@ -393,11 +393,10 @@ if [[ -d "/home/hanifa/Desktop/praktikum1/soal3/Kucing_$kmrn" || ! -d "/home/han
 ```
 Selain untuk mengecek apakah sudah pernah mendownload `kucing` atau `kelinci` **if** ini juga akan mengecek apakah dihari sebelumnya kita telah mendownload `kucing`. Hal ini dilakukan dengan dibantu command `-d` untuk mengecek apakah ada folder `kucing` ataupun `kelinci` yang didownload dihari kemarin. Jika belum pernah mendownload apapun atau sebelumnya telah mendownload `kucing`, maka kita akan melakukan download pada `kelinci`.
 ```shell script
-then
     mkdir "Kelinci_$tanggal"
     cd Kelinci_$tanggal
 ```
-Dimana hal pertama yang dilakukan ialah membuat folder sesuai format yang ada yaitu `Kelinci_$tanggalsaatini`. Lalu masuk kedalam foldernya dan melakukan download pada foto-foto kelinci seperti pada script pada `soal3a.sh`.
+Dimana hal pertama yang dilakukan ialah membuat folder dengan bantuan perintah `mkdir` sesuai format yang ada yaitu **Kelinci_$tanggal**. Lalu masuk kedalam foldernya dengan perintah `cd` diikuti dengan nama foldernya. Lalu, melakukan download pada foto-foto kelinci seperti pada script pada `soal3a.sh`.
 ```shell script
     for (( i=1; i<=23; i++))
     do
@@ -433,8 +432,7 @@ fi
 ```
 Hal ini diakhiri dengan berpindah keluar dari folder `Kelinci` tadi, kembali ke folder luar dengan dibantu perintah `cd`.
 
-Sedangkan berikut ini merupakan kondisi apabila sebelumnya sudah didownload koleksi gambar `kelinci`. Sama seperti sebelumnya diawali dengan membuat folder dengan bantuan
-command `mkdir` sesuai format dan berpindah kedalamnya dengan bantuan perintah `cd`.
+Sedangkan berikut ini merupakan kondisi apabila dihari sebelumnya sudah didownload koleksi gambar `kelinci`. Maka yang akan didownload hari ini ialah koleksi gambar `kucing`. Sama seperti sebelumnya diawali dengan membuat folder dengan bantuan command `mkdir` dimana namanya sesuai format yaitu **Kucing_$tanggal** dan berpindah kedalamnya dengan bantuan perintah `cd`.
 ```shell script
 #kalau kemaren cetak kelinci
 if [ -d "/home/hanifa/Desktop/praktikum1/soal3/Kelinci_$kmrn" ]
@@ -481,7 +479,6 @@ Dibawah ini dimisalkan hari ini tanggal 22 Maret dan kemarin telah didownload ga
 ### 3D ###
 Pada bagian ini diminta untuk **memindahkan folder-folder yang ada ke zip** yang nantinya akan **diberi password** berupa **tanggal hari ini**.
 ```shell script
-tanggal=$(date +"%d-%m-%Y")
 passtgl=$(date +"%m%d%Y")
 
 zip -r -P $passtgl Koleksi.zip Kelinci_* Kucing_* 
