@@ -340,7 +340,7 @@ do
      
 done
 ```
-Dimana diawali dengan iterasi num = 1. Untuk setiap file yang ada yang berekstensi `.jpeg` maka namanya akan dirubah sesuai ketentuan yaitu **Koleksi_XX**. Menggunakan `if` untuk cek `num` nya apakah masih < 10. Karena dalam penamaan jika < 10 haruslah ada 0 diawal nya seperti ini *Koleksi_01* dan Kondisi `else` untuk file ke 10 hingga ke 23.
+Diawali dengan iterasi num = 1 untuk setiap file yang ada yang berekstensi `.jpeg` maka namanya akan dirubah dengan bantuan command `mv` sesuai dengan ketentuannya yaitu **Koleksi_XX**. Dimana menggunakan `if` untuk cek `num` nya apakah masih < 10. Karena dalam penamaan jika < 10 haruslah ada 0 diawal nya seperti ini *Koleksi_01* dan Kondisi `else` untuk file ke 10 hingga ke 23.
 
 ![soal3](Screenshots/soal3a.jpg)
 
@@ -358,6 +358,7 @@ mv Foto.log ./$tanggal
 `./soal3a.sh` berarti akan menjalankan script `soal3a.sh`.
 `mkdir` perintah untuk membuat folder sesuai dengan tanggal unduh nya dengan perintah.
 `mv` untuk memindahkan file-file gambar dan lognya ke folder yang sudah dibuat tadi.
+
 Pada bagian ini juga diminta untuk membuat `cronjob` yang dapat menjalankan script setiap jam 8 malam, diawali pada tanggal 1 dalam 7 hari sekali dan diawali tanggal 2 dalam 4 hari sekali. Dimana dalam menulis `crontab` memiliki aturan yaitu diawal diawali dengan jadwalnya, lalu command yang dijalankan dan file yang mau dijalankan.
 ```shell script
 0 20 1-31/7 * * bash /home/hanifa/Desktop/praktikum1/soal3/soal3b.sh
@@ -461,6 +462,7 @@ fi
 ```
 Sama seperti sebelumnya, diakhiri dengan berpindah lagi dengan bantuan command `cd` untuk kembali ke folder luar.
 
+Dibawah ini dimisalkan hari ini tanggal 22 Maret dan kemarin telah didownload gambar `kucing`, maka hari ini didownload gambar-gambar `kelinci`.
 ![soal3](Screenshots/soal3c.jpg)
 
 ### 3D ###
@@ -473,7 +475,7 @@ zip -r -P $passtgl Koleksi.zip Kelinci_* Kucing_*
 rm -r Kelinci_* Kucing_*
 ```
 Disini kita akan mengekstrak tanggal untuk menjadi password dengan bantuan `$(date + "%m%d%Y")`.
-`zip` merupakan perintah untuk **membuat zip** dimana terdapat command `-r` sebagai tanda yang dizip itu adalah folder dan `-P` untuk memberi password pada zip. Lalu diikuti dengan nama zip yang diinginkan yaitu `Koleksi.zip` dan diikuti dengan folder-folder yang ingin dizip. 
+`zip` merupakan perintah untuk **membuat zip** dimana terdapat command `-r` sebagai tanda yang dizip itu adalah folder dan `-P` untuk memberi password pada zip. Lalu diikuti dengan nama zip yang diinginkan yaitu **Koleksi.zip** dan diikuti dengan folder-folder yang ingin dizip. 
 `rm -r` adalah perintah untuk **menghapus folder** dimana setelahnya diikuti dengan nama folder yang akan dihapus.
 
 ![soal3](Screenshots/soal3d.jpg)
