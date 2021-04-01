@@ -8,7 +8,7 @@
 ### 1A ###
 Hanya melakukan filter per baris menggunakan perl lalu dimasukkan kedalam newline pada terminal
 
-```
+```shell script
 grep -Po '(?<=: ).*(?=)' syslog.log  
 ```
 
@@ -20,7 +20,7 @@ grep -Po '(?<=: ).*(?=)' syslog.log
 
 ### 1B ###
 
-```
+```shell script
 grep -Po '(?<=ERROR ).*(?= \()' syslog.log | sort | uniq -c | sort -nr 
 ```
 
@@ -30,7 +30,7 @@ sama seperti 1D dibawah, namun di outputkan ke terminal (penjelasan di 1D)
 
 ### 1C ###
 
-```
+```shell script
 paste -d',' username.txt infocount.txt errorcount.txt
 ```
 
@@ -41,7 +41,7 @@ sama seperti 1E dibawah, yaitu hanya mengoutputkan file temp menggunakan paste p
 ### 1D ###
 Pertama melakukan filter menggunakan Perl, lalu dimasukkan ke dalam newline, lalu disort dan dicari yang unik (tidak ada kata duplikat), hasilnya lalu disimpan dalam file sementara `temp.txt`
 
-```
+```shell script
 grep -Po '(?<=ERROR ).*(?= \()' syslog.log | sort | uniq -c | sort -nr > temp.txt
 ```
 
@@ -57,13 +57,13 @@ grep -Po '(?<=ERROR ).*(?= \()' syslog.log | sort | uniq -c | sort -nr > temp.tx
 
 Lalu untuk inisialisasi file `error_message.csv`, dilakukan: 
 
-```
+```shell script
 echo "Error,Count">error_message.csv
 ```
 
 Setelah itu dilakukan looping untuk menambahkan output pada `error_message.csv`
 
-```
+```shell script
 while read -r count error
 do
 echo "$error,$count" >> error_message.csv
@@ -77,13 +77,13 @@ done < temp.txt
 ### 1E ###
 Selanjutnya dilakukan inisialisasi file `user_statistic.csv`:
 
-```
+```shell script
 echo "Username,INFO,ERROR" > user_statistic.csv
 ```
 
 Selanjutnya, memfilter username yang dimulai dengan `(` dan diakhiri dengan `)`, lalu disort dan dimasukkan ke file sementara `username.txt`
 
-```
+```shell script
 (grep -Po '(?<=\().*(?=\))' syslog.log | sort --unique) > username.txt
 ```
 
@@ -95,14 +95,14 @@ Selanjutnya, memfilter username yang dimulai dengan `(` dan diakhiri dengan `)`,
 
 Lalu melakukan inisialisasi file sementara `errorcount.txt` dan `infocount.txt`
 
-```
+```shell script
 echo "init" > errorcount.txt
 echo "init" > infocount.txt
 ```
 
 Kemudian, melakukan looping untuk mencari count masing-masing `ERROR` dan `INFO` lalu ditambahkan ke file sementara yang sudah dibuat
 
-```
+```shell script
 while read -r line
 do
  (grep -E -o "ERROR.*($line))" syslog.log | wc -l)>>errorcount.txt
@@ -124,7 +124,7 @@ done < username.txt
 
 Hal selanjutnya yaitu menghapus baris 1 hasil inisialiasi tadi
 
-```
+```shell script
 sed -i '1d' errorcount.txt
 sed -i '1d' infocount.txt
 ```
@@ -134,14 +134,14 @@ sed -i '1d' infocount.txt
 
 Kemudian, menggabungkan info per baris dengan delimiter `,` 
 
-```
+```shell script
 (paste -d',' username.txt infocount.txt errorcount.txt)>>user_statistic.csv
 ```
 `paste -d','` untuk menempel file per baris dengan pembagi `,`
 
 Terakhir yang dilakukan adalah menghapus file-file sementara yang sudah tidak digunakan
 
-```
+```shell script
 rm temp.txt
 rm username.txt
 rm errorcount.txt
@@ -159,7 +159,7 @@ Kesulitan pada soal terdapat pada penyimpanan hasil filter, yang saya lakukan ad
 ### 2A ###
 Pertama, melakukan filter menggunakan awk, lalu hasilnya disimpan pada file sementara `temp.txt`
 
-```
+```shell script
 LC_ALL=C awk -F '\t' 'NR>1 {
 printf("%d\t%.4f\n", $1, ($21/($18-$21))*100);
 }' Laporan-TokoShiSop.tsv > temp.txt
@@ -173,7 +173,7 @@ printf("%d\t%.4f\n", $1, ($21/($18-$21))*100);
 
 Selanjutnya, yang dilakukan adalah melakukan numerical reverse sort dan hanya menampilkan baris pertama
 
-```
+```shell script
 (sort -n -r -k2 temp.txt | head -1 )>temp2.txt
 ```
 
@@ -183,7 +183,7 @@ Selanjutnya, yang dilakukan adalah melakukan numerical reverse sort dan hanya me
 
 Selanjutnya print output pada `hasil.txt`
 
-```
+```shell script
 LC_ALL=C awk -F '\t' '{
 printf("Transaksi terakhir dengan profit percentage terbesar yaitu %d dengan persentase %.4f%%.\n\n", $1, $2);
 }' temp2.txt > hasil.txt
@@ -191,13 +191,13 @@ printf("Transaksi terakhir dengan profit percentage terbesar yaitu %d dengan per
 ### 2B ###
 Lalu, dilanjuti dengan inisialisasi soal 2b pada `hasil.txt`
 
-```
+```shell script
 echo "Daftar nama customer di Albuquerque pada tahun 2017 antara lain:" >> hasil.txt
 ```
 
 Kemudian, dilakukan pemfilteran customer sesuai dengan permintaan soal dan disimpan pada file sementara `temp.txt`
 
-```
+```shell script
 awk -F '\t' '($10 == "Albuquerque") && ($2~/-2017-/) {
 printf("%s\n",$7);
 }' Laporan-TokoShiSop.tsv > temp.txt
@@ -208,12 +208,13 @@ printf("%s\n",$7);
 
 Kemudian hasilnya dilakukan alphabetical sort dan dicari yang unik (tidak duplikat)
 
-```
+```shell script
 sort temp.txt | uniq >> hasil.txt
 ```
 ### 2C ###
 Selanjutnya, memfilter masing-masing segment lalu dihitung masing-masing countnya, dan dimasukkan ke dalam variabel
-```
+
+```shell script
 countHome=$(grep "Home Office" Laporan-TokoShiSop.tsv | wc -l)
 countCons=$(grep "Consumer" Laporan-TokoShiSop.tsv | wc -l)
 countCorp=$(grep "Corporate" Laporan-TokoShiSop.tsv | wc -l)
@@ -221,7 +222,7 @@ countCorp=$(grep "Corporate" Laporan-TokoShiSop.tsv | wc -l)
 
 Hasilnya dimasukkan ke file sementara `temp.txt`
 
-```
+```shell script
 (printf "%d\tHome Office\n" $countHome
 printf "%d\tConsumer\n" $countCons
 printf "%d\tCorporate\n" $countCorp)>temp.txt
@@ -229,13 +230,13 @@ printf "%d\tCorporate\n" $countCorp)>temp.txt
 
 Selanjutnya dilakukan sort untuk mencari yang countnya paling sedikit, lalu print baris pertama, hasilnya lalu dimasukkan kedalam file sementara `temp2.txt`
 
-```
+```shell script
 (sort -n temp.txt | head -1) > temp2.txt
 ```
 
 Kemudian output ditambahkan pada `hasil.txt`
 
-```
+```shell script
 awk -F  '\t' '{
 printf("\nTipe segmen customer yang penjualannya paling sedikit adalah %s dengan %d transaksi.\n\n", $2, $1);
 }' temp2.txt >> hasil.txt
@@ -243,13 +244,14 @@ printf("\nTipe segmen customer yang penjualannya paling sedikit adalah %s dengan
 
 Selanjutnya melakukan inisialisasi ulang temp.txt
 
-```
+```shell script
 echo "init" > temp.txt
 ```
+
 ### 2D ###
 Kemudian, melakukan filtering untuk masing-masing region yang ada dengan awk, lalu menghitung hasil penambahan profitnya, kemudian hasilnya dimasukkan kedalam file sementara `temp.txt`
 
-```
+```shell script
 LC_ALL=C awk -F '\t' '($13~/Central/) {
 #printf("%f\n ", $21);
 s+=$21}
@@ -273,17 +275,18 @@ END {printf("%.4f\tWest\n",s) }' Laporan-TokoShiSop.tsv >>temp.txt
 
 Selanjutnya menghapus baris pertama hasil init tadi
 
-```
+```shell script
 sed -i '1d' temp.txt
 ```
+
 Kemudian, sort profit untuk mendapatkan profit yang paling kecil, dan hanya menampilkan baris pertama, yaitu baris yang paling kecil profitnya setelah disort
 
-```
+```shell script
 (sort -n temp.txt | head -1)>temp2.txt
 ```
 Lalu, melanjutkan print output ke `hasil.txt`
 
-```
+```shell script
 LC_ALL=C awk -F '\t' '{
 printf("Wilayah bagian (region) yang memiliki total keuntungan (profit) yang paling sedikit adalah %s dengan total keuntungan %.4f\n", $2, $1);
 }' temp2.txt >> hasil.txt
@@ -291,7 +294,7 @@ printf("Wilayah bagian (region) yang memiliki total keuntungan (profit) yang pal
 
 Terakhir, melakukan remove file temp yang sudah tidak digunakan
 
-```
+```shell script
 rm temp.txt
 rm temp2.txt
 ```
